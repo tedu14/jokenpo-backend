@@ -1,8 +1,8 @@
-import { Player } from "../dtos/Player";
+import { Player } from "../../dtos/Player";
 
 export interface CreatePlayerRepository{
     findById(id: string): Promise<Player | undefined>
-    create(name: string): Promise<Player>
-    findAll(): Promise<Player[]>
+    create(data: Player): Promise<Player>
+    findAll(): Promise<Player[] | undefined>
     remove(id: string): Promise<void>
 }

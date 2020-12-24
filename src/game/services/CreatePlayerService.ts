@@ -1,13 +1,19 @@
 import { Player } from '@game/dtos/Player';
-import { CreatePlayerRepository } from '@game/repositories/PlayerRepository'
+import { IdGenerateModel } from '@game/providers/idGenerate/model/IdGenerate';
+import { CreatePlayerRepository } from '@game/repositories/models/PlayerRepository'
 
 export default class CreatePlayerService{
     constructor(
-        private userRepository: CreatePlayerRepository
+        private playerRepository: CreatePlayerRepository,
+        private idGenerate: IdGenerateModel
     ){}
 
     public async execute(name: string): Promise<Player>{
-        const user = await this.userRepository.create(name)
+        const id = await this.idGenerate.generate()
+        const user = await this.playerRepository.create({
+            id,
+            name
+        })
 
         return user
     }

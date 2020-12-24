@@ -1,20 +1,16 @@
 import { uuid } from 'uuidv4'
 
 import { Player } from "../../dtos/Player";
-import { CreatePlayerRepository } from "../PlayerRepository";
+import { CreatePlayerRepository } from "../models/PlayerRepository";
 
 export default class CreatePlayerFakeRepository implements CreatePlayerRepository{
     private users: Player[] = []
 
-    public async create(name: string): Promise<Player>{
-        const user: Player = {
-            id: uuid(),
-            name
-        }
+    public async create(data: Player): Promise<Player>{
 
-        this.users.push(user)
+        this.users.push(data)
 
-        return user
+        return data
     }
 
     public async findById(id: string): Promise<Player | undefined>{
@@ -28,7 +24,7 @@ export default class CreatePlayerFakeRepository implements CreatePlayerRepositor
 
     }
 
-    public async findAll(): Promise<Player[]>{
+    public async findAll(): Promise<Player[] | undefined>{
         return this.users
     }
 
