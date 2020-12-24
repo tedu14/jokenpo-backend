@@ -1,0 +1,8 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "a simple backend in nodejs with typescript for a jokenpo game",
+  "main": "index.js",
+  "author": "thalison.eduardo14@gmail.com<tedu14>",
+  "license": "MIT"
+}
