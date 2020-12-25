@@ -13,6 +13,6 @@ describe('CreatePlayerService', () => {
 
         const user = await createPlayerService.execute('Jhon Doe')
 
-        expect(user).toHaveProperty('id')
+        expect(user).toHaveProperty<string>('id')
     })
 })
