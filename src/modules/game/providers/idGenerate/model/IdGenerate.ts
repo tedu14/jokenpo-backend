@@ -1,3 +1,3 @@
-export interface IdGenerateModel{
+export interface IdGenerateModel {
     generate(): Promise<string> | string
 }
