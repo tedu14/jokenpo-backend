@@ -1,9 +1,13 @@
-export interface Moves {
-    player_id: string
-    moves: string[]
+export interface Move {
+    id: string
+    move: string
 }
 
-export interface MoveData {
+export interface Moves {
     player_id: string
-    move: string
+    moves: Move[]
+}
+
+export interface MoveData extends Move {
+    player_id: string
 }
