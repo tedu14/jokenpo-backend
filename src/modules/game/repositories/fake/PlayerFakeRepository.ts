@@ -11,13 +11,11 @@ export default class PlayerFakeRepository implements PlayerRepository {
     }
 
     public async findById(id: string): Promise<Player | undefined> {
-        const index = this.users.findIndex(userIndex => userIndex.id === id)
+        const playerIndex = this.users.findIndex(
+            userIndex => userIndex.id === id
+        )
 
-        if (index > -1) {
-            return this.users[index]
-        } else {
-            return undefined
-        }
+        return this.users[playerIndex]
     }
 
     public async findAll(): Promise<Player[] | undefined> {
