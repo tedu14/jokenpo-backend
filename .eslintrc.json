@@ -39,7 +39,8 @@
             2,
             { "caseSensitive": false }
          ],
-         "camelcase": "off"
+         "camelcase": "off",
+         "consistent-return": "off"
     },
     "settings": {
         "import/resolver": {
