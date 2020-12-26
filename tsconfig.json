@@ -6,7 +6,8 @@
         "strictPropertyInitialization": false,
         "baseUrl": "./src",
         "paths": {
-            "@game/*": ["modules/game/*"]
+            "@game/*": ["modules/game/*"],
+            "main/*": ["main/*"]
         },
         "plugins": [{ "transform": "typescript-transform-paths" }],
         "esModuleInterop": true,
