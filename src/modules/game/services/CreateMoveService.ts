@@ -1,11 +1,11 @@
 import { Move, MoveData } from '@game/dtos/Move'
-import IdGenerate from '@game/providers/idGenerate/implementation/uuidv4'
+import { IdGenerateModel } from '@game/providers/idGenerate/model/IdGenerate'
 import { MoveRepository } from '@game/repositories/models/MoveRepository'
 
 export default class CreateMoveService {
     constructor(
         private moveRepository: MoveRepository,
-        private idGenerate: IdGenerate
+        private idGenerate: IdGenerateModel
     ) {}
 
     public async execute({
