@@ -3,6 +3,7 @@ import MoveFakeRepority from '@game/repositories/fake/MoveFakeRepository'
 import CreateMoveService from '@game/services/CreateMoveService'
 import FindMoveService from '@game/services/FindMoveService'
 import FindAllMoveService from '@game/services/FindAllMoveService'
+import RemoveMoveService from '@game/services/RemoveMoveService'
 import MissingParamError from '../errors/MissingParamError'
 import { badRequest, serverError, successRequest } from '../helpers/httpHelper'
 import { httpRequest, httpResponse } from '../protocols/http'
@@ -67,6 +68,29 @@ export default class MoveController {
             const allmoves = await findAllMoveService.execute()
 
             return successRequest(allmoves)
+        } catch (err) {
+            return serverError()
+        }
+    }
+
+    public async remove(request: httpRequest): Promise<httpResponse> {
+        try {
+            const { player_id, move_id } = request.body
+
+            const moveFakeRepository = new MoveFakeRepority()
+            const removeMoveService = new RemoveMoveService(moveFakeRepository)
+
+            if (!player_id) {
+                return badRequest(new MissingParamError('Player id'))
+            }
+
+            if (!move_id) {
+                return badRequest(new MissingParamError('Move id'))
+            }
+
+            await removeMoveService.execute({ player_id, id: move_id })
+
+            return successRequest(true)
         } catch (err) {
             return serverError()
         }
