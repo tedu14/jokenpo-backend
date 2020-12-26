@@ -6,7 +6,7 @@ const moveController = new MoveController()
 describe('MoveController', () => {
     it('should return status code 400 if player_id is not provided in index method', async () => {
         const httpRequest = {
-            body: {
+            params: {
                 player_id: undefined
             }
         }
@@ -47,7 +47,7 @@ describe('MoveController', () => {
 
     it('should return status code 400 if move_id is not provided in remove method ', async () => {
         const httpRequest = {
-            body: {
+            params: {
                 player_id: '123456',
                 move_id: undefined
             }
@@ -61,7 +61,7 @@ describe('MoveController', () => {
 
     it('should return status code 400 if player_id is not provided in remove method ', async () => {
         const httpRequest = {
-            body: {
+            params: {
                 player_id: undefined,
                 move_id: '123456'
             }

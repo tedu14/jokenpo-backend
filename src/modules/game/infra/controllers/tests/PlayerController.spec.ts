@@ -6,7 +6,7 @@ const playerController = new PlayerController()
 describe('PlayerController', () => {
     it('should return stauts 400 if player_id is not provided in index method', async () => {
         const request = {
-            body: {
+            params: {
                 player_id: undefined
             }
         }
@@ -32,7 +32,7 @@ describe('PlayerController', () => {
 
     it('should return a status code 400 if player id is not provide in remove method', async () => {
         const request = {
-            body: {
+            params: {
                 player_id: undefined
             }
         }
