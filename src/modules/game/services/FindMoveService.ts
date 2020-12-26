@@ -5,8 +5,14 @@ export default class FindMoveService {
     constructor(private moveRepository: MoveRepository) {}
 
     public async execute(player_id: string): Promise<Moves | undefined> {
-        const playerMoves = await this.moveRepository.findByPlayerId(player_id)
+        try {
+            const playerMoves = await this.moveRepository.findByPlayerId(
+                player_id
+            )
 
-        return playerMoves
+            return playerMoves
+        } catch (err) {
+            return err
+        }
     }
 }

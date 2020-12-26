@@ -5,8 +5,12 @@ export default class FindAllMoveService {
     constructor(private moveRepository: MoveRepository) {}
 
     public async execute(): Promise<Moves[] | undefined> {
-        const allMoves = this.moveRepository.findAll()
+        try {
+            const allMoves = await this.moveRepository.findAll()
 
-        return allMoves
+            return allMoves
+        } catch (err) {
+            return err
+        }
     }
 }

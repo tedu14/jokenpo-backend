@@ -12,13 +12,17 @@ export default class CreateMoveService {
         move,
         player_id
     }: Omit<MoveData, 'id'>): Promise<Move> {
-        const id = await this.idGenerate.generate()
-        const createMove = await this.moveRepository.create({
-            move,
-            player_id,
-            id
-        })
+        try {
+            const id = await this.idGenerate.generate()
+            const createMove = await this.moveRepository.create({
+                move,
+                player_id,
+                id
+            })
 
-        return createMove
+            return createMove
+        } catch (err) {
+            return err
+        }
     }
 }

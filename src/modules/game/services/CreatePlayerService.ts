@@ -9,12 +9,16 @@ export default class CreatePlayerService {
     ) {}
 
     public async execute(name: string): Promise<Player> {
-        const id = await this.idGenerate.generate()
-        const user = await this.playerRepository.create({
-            id,
-            name
-        })
+        try {
+            const id = await this.idGenerate.generate()
+            const user = await this.playerRepository.create({
+                id,
+                name
+            })
 
-        return user
+            return user
+        } catch (err) {
+            return err
+        }
     }
 }

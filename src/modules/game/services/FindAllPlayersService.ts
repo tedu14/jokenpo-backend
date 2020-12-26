@@ -5,8 +5,12 @@ export default class FindAllPlayersService {
     constructor(private playerRepository: PlayerRepository) {}
 
     public async execute(): Promise<Player[] | undefined> {
-        const players = await this.playerRepository.findAll()
+        try {
+            const players = await this.playerRepository.findAll()
 
-        return players
+            return players
+        } catch (error) {
+            return error
+        }
     }
 }
