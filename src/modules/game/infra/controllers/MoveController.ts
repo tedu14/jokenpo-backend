@@ -1,24 +1,21 @@
-import { IdGenerateModel } from '@game/providers/idGenerate/model/IdGenerate'
-import { MoveRepository } from '@game/repositories/models/MoveRepository'
 import CreateMoveService from '@game/services/CreateMoveService'
 import FindMoveService from '@game/services/FindMoveService'
 import FindAllMoveService from '@game/services/FindAllMoveService'
 import RemoveMoveService from '@game/services/RemoveMoveService'
+import MoveFakeRepority from '@game/repositories/fake/MoveFakeRepository'
+import IdGenerate from '@game/providers/idGenerate/implementation/uuidv4'
 import MissingParamError from '../errors/MissingParamError'
 import { badRequest, serverError, successRequest } from '../helpers/httpHelper'
 import { httpRequest, httpResponse } from '../protocols/http'
 
 export default class MoveController {
-    constructor(
-        private moveRepository: MoveRepository,
-        private idGenerate: IdGenerateModel
-    ) {}
-
     public async index(request: httpRequest): Promise<httpResponse> {
         try {
-            const { player_id } = request.body
+            const { player_id } = request.params
 
-            const findMoveService = new FindMoveService(this.moveRepository)
+            const moveRepository = new MoveFakeRepority()
+
+            const findMoveService = new FindMoveService(moveRepository)
 
             if (!player_id) {
                 return badRequest(new MissingParamError('Player id'))
@@ -36,9 +33,12 @@ export default class MoveController {
         try {
             const { move, player_id } = request.body
 
+            const moveRepository = new MoveFakeRepority()
+            const idGenerate = new IdGenerate()
+
             const createMoveService = new CreateMoveService(
-                this.moveRepository,
-                this.idGenerate
+                moveRepository,
+                idGenerate
             )
 
             if (!move) {
@@ -62,9 +62,8 @@ export default class MoveController {
 
     public async show(request: httpRequest): Promise<httpResponse> {
         try {
-            const findAllMoveService = new FindAllMoveService(
-                this.moveRepository
-            )
+            const moveRepository = new MoveFakeRepority()
+            const findAllMoveService = new FindAllMoveService(moveRepository)
 
             const allmoves = await findAllMoveService.execute()
 
@@ -76,9 +75,11 @@ export default class MoveController {
 
     public async remove(request: httpRequest): Promise<httpResponse> {
         try {
-            const { player_id, move_id } = request.body
+            const { player_id, move_id } = request.params
 
-            const removeMoveService = new RemoveMoveService(this.moveRepository)
+            const moveRepository = new MoveFakeRepority()
+
+            const removeMoveService = new RemoveMoveService(moveRepository)
 
             if (!player_id) {
                 return badRequest(new MissingParamError('Player id'))
@@ -90,7 +91,7 @@ export default class MoveController {
 
             await removeMoveService.execute({ player_id, id: move_id })
 
-            return successRequest(true)
+            return successRequest('removed move')
         } catch (err) {
             return serverError()
         }
