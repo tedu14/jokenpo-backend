@@ -2,6 +2,7 @@ import IdGenerate from '@game/providers/idGenerate/implementation/uuidv4'
 import MoveFakeRepority from '@game/repositories/fake/MoveFakeRepository'
 import CreateMoveService from '@game/services/CreateMoveService'
 import FindMoveService from '@game/services/FindMoveService'
+import FindAllMoveService from '@game/services/FindAllMoveService'
 import MissingParamError from '../errors/MissingParamError'
 import { badRequest, serverError, successRequest } from '../helpers/httpHelper'
 import { httpRequest, httpResponse } from '../protocols/http'
@@ -51,6 +52,21 @@ export default class MoveController {
             })
 
             return successRequest(createdMove)
+        } catch (err) {
+            return serverError()
+        }
+    }
+
+    public async show(request: httpRequest): Promise<httpResponse> {
+        try {
+            const moveFakeRepository = new MoveFakeRepority()
+            const findAllMoveService = new FindAllMoveService(
+                moveFakeRepository
+            )
+
+            const allmoves = await findAllMoveService.execute()
+
+            return successRequest(allmoves)
         } catch (err) {
             return serverError()
         }
