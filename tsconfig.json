@@ -7,7 +7,8 @@
         "baseUrl": "./src",
         "paths": {
             "@game/*": ["modules/game/*"],
-            "main/*": ["main/*"]
+            "main/*": ["main/*"],
+            "@docs/*": ["docs/*"]
         },
         "plugins": [{ "transform": "typescript-transform-paths" }],
         "esModuleInterop": true,
